@@ -1,0 +1,11 @@
+{
+  "name": "homa-currentcost",
+  "version" : "0.1.0",
+  "private":"true",
+  "dependencies" : {
+    "homa" : ">=0.2.0",
+    "serialport" : ">=1.4.9",
+    "xml2js" : ">=0.4.4"
+  }
+}
+

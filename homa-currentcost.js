@@ -24,22 +24,13 @@ homa.mqttHelper.on('connect', function(packet) {
   homa.mqttHelper.publish("/devices/cc-power/controls/power/meta/type", "text", true);
   homa.mqttHelper.publish("/devices/cc-temp/controls/temperature/meta/type", "text", true);
 
-  var previousTmpr = NaN;
-  var previousCh1 = NaN;
-
   var processMessage = function(err, result) {
     if (result == null) return;
     if (!err) {
       var ch1 = parseInt(result.msg.ch1[0].watts[0]);
       var tmpr = parseFloat(result.msg.tmpr[0]);
-      if (previousCh1 != ch1) {
-        homa.mqttHelper.publish("/devices/cc-power/controls/power", ch1, true);
-        previousCh1 = ch1;
-      }
-      if (previousTmpr != tmpr) {
-        homa.mqttHelper.publish("/devices/cc-temp/controls/temperature", tmpr, true);
-        previousTmpr = tmpr;
-      }
+      homa.mqttHelper.publish("/devices/cc-power/controls/power", ch1, true);
+      homa.mqttHelper.publish("/devices/cc-temp/controls/temperature", tmpr, true);
     } else {
       log.error("Unable to parse XML!");
     }
